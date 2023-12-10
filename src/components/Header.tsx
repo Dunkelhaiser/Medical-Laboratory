@@ -1,10 +1,10 @@
 "use client";
 
-import { Button } from "@ui/Button";
 import Link from "next/link";
 import { LogIn } from "lucide-react";
-import { Separator } from "@ui/Separator";
 import { usePathname } from "next/navigation";
+import { Button } from "@ui/Button";
+import { Separator } from "@ui/Separator";
 import Hamburger from "@ui/Hamburger";
 import useToggle from "@hooks/useToggle";
 import { cn } from "@utils/utils";
@@ -32,7 +32,11 @@ const Header = () => {
         <header className="fixed left-0 right-0 top-0 z-[999] flex w-full flex-wrap border-b border-accent bg-card py-3 text-sm sm:flex-nowrap sm:justify-start sm:py-0">
             <div className="relative mx-auto w-full max-w-[85rem] px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between">
-                    <Link className="text-xl font-semibold text-primary" href="/" aria-label="Labi">
+                    <Link
+                        className="h-10 rounded-md px-4 py-2 text-xl font-semibold text-primary ring-primary ring-offset-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                        href="/"
+                        aria-label="Labi"
+                    >
                         Labix
                     </Link>
                     <Hamburger className="sm:hidden" expanded={expanded} onClick={() => setExpanded()} />
