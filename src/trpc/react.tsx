@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { loggerLink, unstable_httpBatchStreamLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import { useState } from "react";
+import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 
 import { type AppRouter } from "@/server/api/root";
 import { getUrl, transformer } from "./shared";
@@ -36,6 +37,7 @@ export function TRPCReactProvider({ children, cookies }: { children: React.React
     return (
         <QueryClientProvider client={queryClient}>
             <api.Provider client={trpcClient} queryClient={queryClient}>
+                <ProgressBar height="2px" color="#37a8ae" options={{ showSpinner: false }} shallowRouting />
                 {children}
             </api.Provider>
         </QueryClientProvider>
