@@ -2,6 +2,8 @@ import { z as zod } from "zod";
 
 export const schema = zod
     .object({
+        firstName: zod.string().min(1, { message: "Enter your first name" }),
+        lastName: zod.string().min(1, { message: "Enter your last name" }),
         email: zod.string().min(1, { message: "Enter your email" }).email({ message: "Enter a valid email" }),
         phone: zod.string().min(1, { message: "Enter your phone number" }),
         password: zod.string().min(1, { message: "Enter your password" }),

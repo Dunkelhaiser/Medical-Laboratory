@@ -13,6 +13,8 @@ const SignUp = () => {
         resolver: zodResolver(schema),
         mode: "onBlur",
         defaultValues: {
+            firstName: "",
+            lastName: "",
             email: "",
             phone: "",
             password: "",
@@ -38,32 +40,62 @@ const SignUp = () => {
                         Sign in here
                     </Link>
                 </p>
-                <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field, fieldState }) => (
-                        <FormItem>
-                            <FormLabel>Email</FormLabel>
-                            <FormControl>
-                                <Input {...field} className={fieldState.error && "border-destructive ring-destructive"} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field, fieldState }) => (
-                        <FormItem>
-                            <FormLabel>Phone Number</FormLabel>
-                            <FormControl>
-                                <Input {...field} className={fieldState.error && "border-destructive ring-destructive"} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                <div className="flex w-full justify-between gap-4">
+                    <FormField
+                        control={form.control}
+                        name="firstName"
+                        render={({ field, fieldState }) => (
+                            <FormItem className="w-full">
+                                <FormLabel>First Name</FormLabel>
+                                <FormControl>
+                                    <Input {...field} className={fieldState.error && "border-destructive ring-destructive"} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="lastName"
+                        render={({ field, fieldState }) => (
+                            <FormItem className="w-full">
+                                <FormLabel>Last Name</FormLabel>
+                                <FormControl>
+                                    <Input {...field} className={fieldState.error && "border-destructive ring-destructive"} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
+                <div className="flex w-full justify-between gap-4">
+                    <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field, fieldState }) => (
+                            <FormItem className="w-full">
+                                <FormLabel>Email</FormLabel>
+                                <FormControl>
+                                    <Input {...field} className={fieldState.error && "border-destructive ring-destructive"} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="phone"
+                        render={({ field, fieldState }) => (
+                            <FormItem className="w-full">
+                                <FormLabel>Phone Number</FormLabel>
+                                <FormControl>
+                                    <Input {...field} className={fieldState.error && "border-destructive ring-destructive"} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
                 <FormField
                     control={form.control}
                     name="password"
