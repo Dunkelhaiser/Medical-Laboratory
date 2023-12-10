@@ -49,6 +49,7 @@ const Header = () => {
                                 className={`ring-offset-card ${route === link.href ? "" : "text-accent-foreground/50 ring-offset-card"}`}
                                 aria-current={route === link.href ? "page" : undefined}
                                 asChild
+                                key={link.href}
                             >
                                 <Link href={link.href}>{link.name}</Link>
                             </Button>
