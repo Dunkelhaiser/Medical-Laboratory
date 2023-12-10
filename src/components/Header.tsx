@@ -30,7 +30,7 @@ const Header = () => {
 
     return (
         <header className="fixed left-0 right-0 top-0 z-[999] flex w-full flex-wrap border-b border-accent bg-card py-3 text-sm sm:flex-nowrap sm:justify-start sm:py-0">
-            <div className="relative mx-auto w-full max-w-7xl px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
+            <div className="relative mx-auto w-full max-w-[85rem] px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between">
                     <Link className="text-xl font-semibold text-primary" href="/" aria-label="Labi">
                         Labix
