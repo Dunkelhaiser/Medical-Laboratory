@@ -28,6 +28,7 @@
             "@ui/*": ["./src/components/ui/*"],
             "@components/*": ["./src/components/*"],
             "@hooks/*": ["./src/hooks/*"],
+            "@models/*": ["./src/models/*"],
             "@utils/*": ["./src/utils/*"],
             "@/*": ["./src/*"]
         }
