@@ -20,17 +20,11 @@ declare module "next-auth" {
 }
 
 export const authOptions: NextAuthOptions = {
+    session: {
+        strategy: "jwt",
+    },
     pages: {
         signIn: "/sign_in",
-    },
-    callbacks: {
-        session: ({ session, user }) => ({
-            ...session,
-            user: {
-                ...session.user,
-                id: user.id,
-            },
-        }),
     },
     adapter: PrismaAdapter(db),
     providers: [
@@ -58,6 +52,25 @@ export const authOptions: NextAuthOptions = {
             },
         }),
     ],
+    callbacks: {
+        async jwt({ token, user }: any) {
+            if (user) {
+                return {
+                    ...token,
+                    id: user.id,
+                    username: user.username,
+                };
+            }
+            return token;
+        },
+        async session({ session, token }: any) {
+            // eslint-disable-next-line no-param-reassign
+            session.user.id = token.id;
+            // eslint-disable-next-line no-param-reassign
+            session.user.username = token.username;
+            return session;
+        },
+    },
 };
 
 export const getServerAuthSession = () => getServerSession(authOptions);
