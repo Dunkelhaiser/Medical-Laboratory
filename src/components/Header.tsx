@@ -1,13 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { LogIn } from "lucide-react";
+import { LogIn, User } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Button } from "@ui/Button";
 import { Separator } from "@ui/Separator";
 import Hamburger from "@ui/Hamburger";
 import useToggle from "@hooks/useToggle";
 import { cn } from "@utils/utils";
+import { Session } from "next-auth";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@ui/DropdownMenu";
+import { signOut } from "next-auth/react";
 
 const links = [
     {
@@ -24,7 +27,11 @@ const links = [
     },
 ];
 
-const Header = () => {
+interface Props {
+    session: Session | null;
+}
+
+const Header = ({ session }: Props) => {
     const route = usePathname();
     const [expanded, setExpanded] = useToggle(false);
 
@@ -55,17 +62,45 @@ const Header = () => {
                             </Button>
                         ))}
                         <Separator orientation="vertical" className="hidden sm:block" />
-                        <Button
-                            variant="link"
-                            className={`ring-offset-card ${route === "/sign_in" ? "" : "text-accent-foreground/50 ring-offset-card"}`}
-                            aria-current={route === "/sign_in" ? "page" : undefined}
-                            asChild
-                        >
-                            <Link href="/sign_in">
-                                <LogIn size={20} strokeWidth={1.75} className="mr-1" />
-                                Sign in
-                            </Link>
-                        </Button>
+                        {session ? (
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button
+                                        variant="link"
+                                        className={`ring-offset-card ${
+                                            route === "/profile" ? "" : "text-accent-foreground/50 ring-offset-card"
+                                        }`}
+                                        aria-current={route === "/profile" ? "page" : undefined}
+                                        size="icon"
+                                    >
+                                        <User size={20} strokeWidth={1.75} />
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent>
+                                    <DropdownMenuItem asChild>
+                                        <Link href="/profile">Profile</Link>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem asChild>
+                                        <button onClick={() => signOut()} className="w-full">
+                                            Sign Out
+                                        </button>
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        ) : (
+                            <Button
+                                variant="link"
+                                className={`ring-offset-card ${route === "/sign_in" ? "" : "text-accent-foreground/50 ring-offset-card"}`}
+                                aria-current={route === "/sign_in" ? "page" : undefined}
+                                asChild
+                            >
+                                <Link href="/sign_in">
+                                    <LogIn size={20} strokeWidth={1.75} className="mr-1" />
+                                    Sign in
+                                </Link>
+                            </Button>
+                        )}
                     </div>
                 </nav>
             </div>
