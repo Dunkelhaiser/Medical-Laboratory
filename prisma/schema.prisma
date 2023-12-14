@@ -43,6 +43,7 @@ model User {
     password      String
     accounts      Account[]
     sessions      Session[]
+    cart          Cart[]
 }
 
 model VerificationToken {
@@ -51,4 +52,20 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Service {
+    id          String   @id @default(cuid())
+    name        String
+    description String
+    price       Float
+    duration    Int
+    cart        Cart[]
+}
+
+model Cart {
+    id          String   @id @default(cuid())
+    userId      String
+    user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    services    Service[]
 }
