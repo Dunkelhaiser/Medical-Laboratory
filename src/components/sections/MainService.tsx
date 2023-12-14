@@ -1,6 +1,9 @@
+import { api } from "@/trpc/server";
 import Service from "@components/Service";
 
-const MainService = () => {
+const MainService = async () => {
+    const services = await api.service.getServices.query({ limit: 3 });
+
     return (
         <section className="flex flex-col">
             <div className="text-center">
@@ -9,10 +12,10 @@ const MainService = () => {
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut itaque quia porro.
                 </p>
             </div>
-            <div className="grid grid-cols-3 gap-8">
-                <Service />
-                <Service />
-                <Service />
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-8">
+                {services.map((service) => (
+                    <Service key={service.id} name={service.name} description={service.description} price={service.price} id={service.id} />
+                ))}
             </div>
         </section>
     );

@@ -4,7 +4,7 @@ import MainService from "@components/sections/MainService";
 
 export default async function Home() {
     return (
-        <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-8 sm:gap-16">
             <Hero />
             <About />
             <MainService />
