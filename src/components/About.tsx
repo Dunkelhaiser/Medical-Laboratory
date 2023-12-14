@@ -1,6 +1,6 @@
 const About = () => {
     return (
-        <section className="grid grid-cols-2 gap-[10rem]">
+        <section className="flex grid-cols-2 flex-col gap-2 text-center sm:grid sm:gap-[10rem] sm:text-left">
             <div>
                 <h3 className="font-bold uppercase text-primary">About Us</h3>
                 <p className="text-3xl font-bold capitalize">We employ latest research technology & company</p>
