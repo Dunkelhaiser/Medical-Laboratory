@@ -4,11 +4,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpForm, schema } from "@models/SignUp";
 import { Button } from "@ui/Button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@ui/Form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRow } from "@ui/Form";
 import { Input } from "@ui/Input";
 import Link from "@ui/Link";
+import { api } from "@/trpc/react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
+    const router = useRouter();
     const form = useForm<SignUpForm>({
         resolver: zodResolver(schema),
         mode: "onBlur",
@@ -22,9 +26,24 @@ const SignUp = () => {
         },
     });
 
+    const signUp = api.auth.create.useMutation({
+        onSuccess: () => {
+            toast.success("Account created successfully");
+            router.push("/sign_in");
+        },
+        onError: (err) => {
+            if (err.shape?.data.code === "CONFLICT") {
+                toast.error(err.message);
+            } else {
+                toast.error("Failed to create account");
+            }
+        },
+    });
+
     const onSubmit = async (values: SignUpForm) => {
         try {
-        } catch (err) {}
+            await signUp.mutateAsync(values);
+        } catch {}
     };
 
     return (
@@ -40,7 +59,7 @@ const SignUp = () => {
                         Sign in here
                     </Link>
                 </p>
-                <div className="flex w-full justify-between gap-4">
+                <FormRow>
                     <FormField
                         control={form.control}
                         name="firstName"
@@ -67,8 +86,8 @@ const SignUp = () => {
                             </FormItem>
                         )}
                     />
-                </div>
-                <div className="flex w-full justify-between gap-4">
+                </FormRow>
+                <FormRow>
                     <FormField
                         control={form.control}
                         name="email"
@@ -95,7 +114,7 @@ const SignUp = () => {
                             </FormItem>
                         )}
                     />
-                </div>
+                </FormRow>
                 <FormField
                     control={form.control}
                     name="password"
@@ -103,7 +122,7 @@ const SignUp = () => {
                         <FormItem>
                             <FormLabel>Password</FormLabel>
                             <FormControl>
-                                <Input {...field} className={fieldState.error && "border-destructive ring-destructive"} />
+                                <Input {...field} className={fieldState.error && "border-destructive ring-destructive"} type="password" />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -116,7 +135,7 @@ const SignUp = () => {
                         <FormItem>
                             <FormLabel>Confirm Password</FormLabel>
                             <FormControl>
-                                <Input {...field} className={fieldState.error && "border-destructive ring-destructive"} />
+                                <Input {...field} className={fieldState.error && "border-destructive ring-destructive"} type="password" />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

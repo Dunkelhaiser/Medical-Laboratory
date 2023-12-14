@@ -69,6 +69,15 @@ const FormItem = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>
 });
 FormItem.displayName = "FormItem";
 
+const FormRow = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => {
+    return (
+        <div ref={ref} className={cn("flex w-full justify-between gap-4", className)}>
+            {props.children}
+        </div>
+    );
+});
+FormRow.displayName = "FormRow";
+
 const FormLabel = forwardRef<React.ElementRef<typeof LabelPrimitive.Root>, React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>>(
     ({ className, ...props }, ref) => {
         const { formItemId } = useFormField();
@@ -118,4 +127,4 @@ const FormMessage = forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLPa
 );
 FormMessage.displayName = "FormMessage";
 
-export { useFormField, Form, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormField };
+export { useFormField, Form, FormRow, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormField };

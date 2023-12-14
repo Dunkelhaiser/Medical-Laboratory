@@ -8,8 +8,8 @@ const Loader = ({ variant }: { variant?: "light" | "dark" }) => {
     return (
         <div
             className={cn(
-                "absolute h-4 w-4 animate-spin rounded-full border-2 border-border border-b-transparent",
-                variant === "light" ? "border-border" : "border-foreground"
+                "absolute h-4 w-4 animate-spin rounded-full border-2 border-border !border-b-transparent",
+                variant === "light" ? "border-card" : "border-foreground"
             )}
         />
     );
@@ -46,7 +46,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, variant, size, asChild = false, loading = false, ...props }, ref) => {
+    ({ className, variant = "default", size, asChild = false, loading = false, ...props }, ref) => {
         const Comp = asChild ? Slot : "button";
         return (
             <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} disabled={props.disabled || loading} {...props}>
