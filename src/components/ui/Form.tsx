@@ -71,7 +71,7 @@ FormItem.displayName = "FormItem";
 
 const FormRow = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => {
     return (
-        <div ref={ref} className={cn("flex w-full justify-between gap-4", className)}>
+        <div ref={ref} className={cn("flex w-full flex-col justify-between gap-2 sm:flex-row sm:gap-4", className)}>
             {props.children}
         </div>
     );
