@@ -48,7 +48,7 @@ const Header = ({ session }: Props) => {
                     </Link>
                     <Hamburger className="sm:hidden" expanded={expanded} onClick={() => setExpanded()} />
                 </div>
-                <nav className={cn("grow basis-full overflow-hidden transition sm:h-auto", expanded ? "h-[204px]" : "h-0")}>
+                <nav className={cn("grow basis-full overflow-hidden transition sm:h-auto", expanded ? "h-[255px]" : "h-0")}>
                     <div className="mt-5 flex flex-col gap-x-0 gap-y-2 sm:mt-0 sm:flex-row sm:items-center sm:justify-end sm:gap-x-4 sm:gap-y-0 sm:py-4 sm:ps-7">
                         {links.map((link) => (
                             <Button
@@ -63,31 +63,52 @@ const Header = ({ session }: Props) => {
                         ))}
                         <Separator orientation="vertical" className="hidden sm:block" />
                         {session ? (
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button
-                                        variant="link"
-                                        className={`ring-offset-card ${
-                                            route === "/profile" ? "" : "text-accent-foreground/50 ring-offset-card"
-                                        }`}
-                                        aria-current={route === "/profile" ? "page" : undefined}
-                                        size="icon"
-                                    >
-                                        <User size={20} strokeWidth={1.75} />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <DropdownMenuItem asChild>
-                                        <Link href="/profile">Profile</Link>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuItem asChild>
-                                        <button onClick={() => signOut()} className="w-full">
-                                            Sign Out
-                                        </button>
-                                    </DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                            <>
+                                <div className="hidden sm:block">
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button
+                                                variant="link"
+                                                className={`ring-offset-card ${
+                                                    route === "/profile" ? "" : "text-accent-foreground/50 ring-offset-card"
+                                                }`}
+                                                aria-current={route === "/profile" ? "page" : undefined}
+                                                size="icon"
+                                            >
+                                                <User size={20} strokeWidth={1.75} />
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent>
+                                            <DropdownMenuItem asChild>
+                                                <Link href="/profile">Profile</Link>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuSeparator />
+                                            <DropdownMenuItem asChild>
+                                                <button onClick={() => signOut()} className="w-full">
+                                                    Sign Out
+                                                </button>
+                                            </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                </div>
+                                <Button
+                                    variant="link"
+                                    className={`ring-offset-card sm:hidden ${
+                                        route === "/profile" ? "" : "text-accent-foreground/50 ring-offset-card"
+                                    }`}
+                                    aria-current={route === "/profile" ? "page" : undefined}
+                                    asChild
+                                >
+                                    <Link href="/profile">Profile</Link>
+                                </Button>
+                                <Button
+                                    variant="link"
+                                    className="text-accent-foreground/50 ring-offset-card sm:hidden"
+                                    onClick={() => signOut()}
+                                >
+                                    Sign Out
+                                </Button>
+                            </>
                         ) : (
                             <Button
                                 variant="link"
