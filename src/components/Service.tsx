@@ -16,7 +16,7 @@ const Service = ({ name, description, price, id }: Props) => {
             </div>
             <div className="mt-auto">
                 <p className="mt-2 text-xl font-bold text-primary">₴{price}</p>
-                <Button className="mt-2" variant="default">
+                <Button className="mt-2 max-sm:w-full" variant="default">
                     Add to cart
                 </Button>
             </div>
