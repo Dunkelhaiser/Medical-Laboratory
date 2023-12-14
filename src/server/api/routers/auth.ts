@@ -4,7 +4,7 @@ import { schema } from "@models/SignUp";
 import { TRPCError } from "@trpc/server";
 
 export const authRouter = createTRPCRouter({
-    create: publicProcedure.input(schema).mutation(async ({ ctx, input }) => {
+    signUp: publicProcedure.input(schema).mutation(async ({ ctx, input }) => {
         const existingEmail = await ctx.db.user.findUnique({
             where: { email: input.email },
         });

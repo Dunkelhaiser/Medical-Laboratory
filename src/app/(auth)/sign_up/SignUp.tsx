@@ -26,7 +26,7 @@ const SignUp = () => {
         },
     });
 
-    const signUp = api.auth.create.useMutation({
+    const signUp = api.auth.signUp.useMutation({
         onSuccess: () => {
             toast.success("Account created successfully");
             router.push("/sign_in");
