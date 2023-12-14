@@ -26,7 +26,7 @@ const SignUp = () => {
         },
     });
 
-    const signUp = api.auth.signUp.useMutation({
+    const { mutate, isLoading } = api.auth.signUp.useMutation({
         onSuccess: () => {
             toast.success("Account created successfully");
             router.push("/sign_in");
@@ -40,15 +40,9 @@ const SignUp = () => {
         },
     });
 
-    const onSubmit = async (values: SignUpForm) => {
-        try {
-            await signUp.mutateAsync(values);
-        } catch {}
-    };
-
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-prose space-y-4 max-sm:space-y-2">
+            <form onSubmit={form.handleSubmit((data) => mutate(data))} className="w-full max-w-prose space-y-4 max-sm:space-y-2">
                 <h1 className="text-3xl font-bold">Sign Up</h1>
                 <p className="mt-2 text-sm text-foreground/80 dark:text-gray-400">
                     Already have an account?{" "}
@@ -142,7 +136,7 @@ const SignUp = () => {
                     )}
                 />
 
-                <Button className="max-sm:w-full" loading={form.formState.isSubmitting}>
+                <Button className="max-sm:w-full" loading={isLoading}>
                     Sign Up
                 </Button>
             </form>
