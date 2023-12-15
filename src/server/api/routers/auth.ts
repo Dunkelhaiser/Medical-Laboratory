@@ -2,20 +2,8 @@ import bcrypt from "bcrypt";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { schema } from "@models/SignUp";
 import { TRPCError } from "@trpc/server";
-import { Resend } from "resend";
-import { env } from "@/env";
 import { randomUUID } from "crypto";
-
-const resend = new Resend(env.RESEND_API_KEY);
-
-const sendEmail = async (email: string, token: string) => {
-    await resend.emails.send({
-        from: "onboarding@resend.dev",
-        to: email,
-        subject: `Labix - Confirm your email`,
-        html: `Click <a href="${env.NEXTAUTH_URL}/activate/${token}">here</a> to verify your account`,
-    });
-};
+import { sendVerification } from "@/server/mail";
 
 export const authRouter = createTRPCRouter({
     signUp: publicProcedure.input(schema).mutation(async ({ ctx, input }) => {
@@ -64,7 +52,7 @@ export const authRouter = createTRPCRouter({
             },
         });
 
-        await sendEmail(user.email, token.token);
+        await sendVerification(user.email, token.token);
 
         return user;
     }),

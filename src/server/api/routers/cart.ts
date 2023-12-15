@@ -1,4 +1,5 @@
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+import { sendNotice } from "@/server/mail";
 import { TRPCError } from "@trpc/server";
 import { z as zod } from "zod";
 
@@ -145,5 +146,43 @@ export const cartRouter = createTRPCRouter({
         });
 
         return foundItem;
+    }),
+    purchase: protectedProcedure.mutation(async ({ ctx }) => {
+        const userCart = await ctx.db.cart.findFirst({
+            where: {
+                userId: ctx.session.user.id,
+            },
+            include: {
+                services: true,
+            },
+        });
+
+        if (!userCart) {
+            throw new TRPCError({
+                code: "NOT_FOUND",
+                message: "Cart not found",
+            });
+        }
+
+        const purchasedServices = await ctx.db.cart.update({
+            where: {
+                id: userCart.id,
+            },
+            data: {
+                services: {
+                    disconnect: userCart.services,
+                },
+            },
+        });
+
+        await sendNotice(ctx.session.user.email!);
+
+        await ctx.db.cart.create({
+            data: {
+                userId: ctx.session.user.id,
+            },
+        });
+
+        return purchasedServices;
     }),
 });

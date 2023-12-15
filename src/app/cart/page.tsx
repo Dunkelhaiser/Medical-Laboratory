@@ -1,6 +1,6 @@
 import { api } from "@/trpc/server";
+import Purchase from "@components/Purchase";
 import RemoveFromCart from "@components/RemoveFromCart";
-import { Button } from "@ui/Button";
 
 const Page = async () => {
     const data = await api.cart.getCart.query();
@@ -30,7 +30,7 @@ const Page = async () => {
                     <p className="mb-4 text-lg">
                         Total price: <span className="font-bold">₴{data.services.reduce((acc, item) => acc + item.price, 0)}</span>
                     </p>
-                    {data.services.length > 0 && <Button size="lg">Purchase</Button>}
+                    {data.services.length > 0 && <Purchase />}
                 </div>
             </div>
         </section>
