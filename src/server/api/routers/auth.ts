@@ -51,6 +51,12 @@ export const authRouter = createTRPCRouter({
             },
         });
 
+        await ctx.db.cart.create({
+            data: {
+                userId: user.id,
+            },
+        });
+
         const token = await ctx.db.verificationToken.create({
             data: {
                 userId: user.id,
