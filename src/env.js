@@ -13,6 +13,7 @@ export const env = createEnv({
             .refine((str) => !str.includes("YOUR_MYSQL_URL_HERE"), "You forgot to change the default URL"),
         NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
         NEXTAUTH_SECRET: process.env.NODE_ENV === "production" ? z.string() : z.string().optional(),
+        RESEND_API_KEY: z.string(),
         NEXTAUTH_URL: z.preprocess(
             // This makes Vercel deployments not fail if you don't set NEXTAUTH_URL
             // Since NextAuth.js automatically uses the VERCEL_URL if present.
@@ -40,6 +41,7 @@ export const env = createEnv({
         NODE_ENV: process.env.NODE_ENV,
         NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
         NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+        RESEND_API_KEY: process.env.RESEND_API_KEY,
     },
     /**
      * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

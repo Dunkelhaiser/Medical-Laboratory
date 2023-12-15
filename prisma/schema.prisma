@@ -44,14 +44,14 @@ model User {
     accounts      Account[]
     sessions      Session[]
     cart          Cart[]
+    tokens        VerificationToken[]
 }
 
 model VerificationToken {
-    identifier String
+    id         String   @id @default(cuid())
     token      String   @unique
-    expires    DateTime
-
-    @@unique([identifier, token])
+    user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId      String
 }
 
 model Service {
