@@ -2,6 +2,7 @@ import "@/app/globals.css";
 
 import { Montserrat } from "next/font/google";
 import { cookies } from "next/headers";
+import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 
 import { TRPCReactProvider } from "@/trpc/react";
@@ -10,7 +11,7 @@ import { getServerAuthSession } from "@/server/auth";
 
 const montserrat = Montserrat({ subsets: ["latin", "cyrillic"] });
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Medix",
     description: "Medical Laboratory",
     icons: [{ rel: "icon", url: "/favicon.ico" }],

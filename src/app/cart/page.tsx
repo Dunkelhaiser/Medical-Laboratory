@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import { api } from "@/trpc/server";
 import Purchase from "@components/Purchase";
 import RemoveFromCart from "@components/RemoveFromCart";
+import { Label } from "@ui/Label";
+
+export const metadata: Metadata = {
+    title: "Medix - Cart",
+    description: "Your cart at Medix.",
+};
 
 const Page = async () => {
     const data = await api.cart.getCart.query();
@@ -30,6 +37,11 @@ const Page = async () => {
                     <p className="mb-4 text-lg">
                         Total price: <span className="font-bold">₴{data.services.reduce((acc, item) => acc + item.price, 0)}</span>
                     </p>
+                    <Label>Appointment Date</Label>
+                    <input
+                        type="date"
+                        className="border-input placeholder:text-muted-foreground flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm ring-foreground ring-offset-card transition file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50"
+                    />
                     {data.services.length > 0 && <Purchase />}
                 </div>
             </div>

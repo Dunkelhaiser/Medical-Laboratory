@@ -1,5 +1,11 @@
 import { api } from "@/trpc/server";
 import Service from "@components/Service";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Medix - Services",
+    description: "Services that Medix provides.",
+};
 
 const Page = async () => {
     const services = await api.service.getServices.query({});
