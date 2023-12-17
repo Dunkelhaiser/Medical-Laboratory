@@ -1,4 +1,4 @@
-import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import { createTRPCRouter, publicProcedure, protectedProcedure } from "@/server/api/trpc";
 import { z as zod } from "zod";
 
 export const serviceRouter = createTRPCRouter({
@@ -32,4 +32,17 @@ export const serviceRouter = createTRPCRouter({
         });
         return comments;
     }),
+    createComment: protectedProcedure
+        .input(zod.object({ serviceId: zod.string(), content: zod.string(), rating: zod.number() }))
+        .mutation(({ ctx, input }) => {
+            const comment = ctx.db.comments.create({
+                data: {
+                    content: input.content,
+                    serviceId: input.serviceId,
+                    userId: ctx.session.user.id,
+                    rating: input.rating,
+                },
+            });
+            return comment;
+        }),
 });
