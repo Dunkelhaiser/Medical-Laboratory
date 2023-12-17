@@ -55,12 +55,16 @@ model VerificationToken {
 }
 
 model Service {
-    id          String   @id @default(cuid())
-    name        String
-    description String
-    price       Float
-    duration    Int
-    cart        Cart[]
+    id              String   @id @default(cuid())
+    name            String
+    description     String
+    descriptionFull String
+    price           Float
+    duration        Int
+    researches      String[]
+    materials       String[]
+    preparations    String[]
+    cart            Cart[]
 }
 
 model Cart {

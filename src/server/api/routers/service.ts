@@ -8,4 +8,12 @@ export const serviceRouter = createTRPCRouter({
         });
         return services;
     }),
+    getService: publicProcedure.input(zod.object({ id: zod.string() })).query(({ ctx, input }) => {
+        const service = ctx.db.service.findUnique({
+            where: {
+                id: input.id,
+            },
+        });
+        return service;
+    }),
 });

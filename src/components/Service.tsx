@@ -22,7 +22,10 @@ const Service = async ({ name, description, price, duration, id }: Props) => {
     }
 
     return (
-        <div className="flex flex-col justify-between rounded-md bg-card px-8 py-5 text-card-foreground shadow-sm">
+        <Link
+            href={`services/${id}`}
+            className="relative top-0 flex flex-col justify-between rounded-md bg-card px-8 py-5 text-card-foreground shadow-sm ring-primary ring-offset-background transition-all hover:top-[2px] hover:shadow focus-visible:top-[2px] focus-visible:shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+        >
             <div>
                 <h4 className="text-2xl font-bold">{name}</h4>
                 <p className="text-sm text-card-foreground/75">{description}</p>
@@ -44,7 +47,7 @@ const Service = async ({ name, description, price, duration, id }: Props) => {
                     </Button>
                 )}
             </div>
-        </div>
+        </Link>
     );
 };
 export default Service;
