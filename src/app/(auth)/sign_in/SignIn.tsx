@@ -65,7 +65,7 @@ const SignIn = () => {
                         <FormItem>
                             <FormLabel>Password</FormLabel>
                             <FormControl>
-                                <Input {...field} className={fieldState.error && "border-destructive ring-destructive"} />
+                                <Input {...field} type="password" className={fieldState.error && "border-destructive ring-destructive"} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
