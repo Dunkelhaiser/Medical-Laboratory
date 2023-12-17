@@ -2,6 +2,7 @@
 
 import { api } from "@/trpc/react";
 import { Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 interface Props {
@@ -9,9 +10,11 @@ interface Props {
 }
 
 const DeleteComment = ({ id }: Props) => {
+    const router = useRouter();
     const { mutate } = api.service.deleteComment.useMutation({
         onSuccess: () => {
             toast.success("Comment deleted successfully");
+            router.refresh();
         },
         onError: () => {
             toast.error("Failed to delete comment");

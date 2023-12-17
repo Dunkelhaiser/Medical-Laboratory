@@ -8,6 +8,7 @@ import { Button } from "@ui/Button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@ui/Form";
 import { cn } from "@utils/utils";
 import { Star } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -19,6 +20,7 @@ interface Props {
 const CreateComment = ({ serviceId }: Props) => {
     const [open, setOpen] = useToggle(false);
     const [rating, setRating] = useState(0);
+    const router = useRouter();
     const form = useForm<CommentForm>({ resolver: zodResolver(schema), mode: "onBlur", defaultValues: { content: "", rating: 0 } });
 
     useEffect(() => {
@@ -28,6 +30,7 @@ const CreateComment = ({ serviceId }: Props) => {
     const { mutate, isLoading } = api.service.createComment.useMutation({
         onSuccess: () => {
             toast.success("Comment created successfully");
+            router.refresh();
             form.reset();
         },
         onError: () => {

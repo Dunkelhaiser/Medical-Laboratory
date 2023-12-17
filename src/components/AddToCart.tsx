@@ -2,6 +2,7 @@
 
 import { api } from "@/trpc/react";
 import { Button } from "@ui/Button";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 interface Props {
@@ -9,11 +10,11 @@ interface Props {
 }
 
 const AddToCart = ({ id }: Props) => {
-    const utils = api.useUtils();
+    const router = useRouter();
     const { mutate, isLoading } = api.cart.addToCart.useMutation({
         onSuccess: () => {
             toast.success("Added to cart");
-            utils.cart.invalidate();
+            router.refresh();
         },
         onError: () => {
             toast.error("Failed to add to cart");
