@@ -1,4 +1,5 @@
 import { api } from "@/trpc/server";
+import Comment from "@components/Comment";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@ui/Tabs";
 
 interface Props {
@@ -41,14 +42,24 @@ const Page = async ({ params }: any) => {
                 <TabsList>
                     <TabsTrigger value="overview">Overview</TabsTrigger>
                     <TabsTrigger value="preparations">Preparations</TabsTrigger>
+                    <TabsTrigger value="comments">Comments</TabsTrigger>
                 </TabsList>
-                <TabsContent value="overview">
+                <TabsContent value="overview" className="max-w-4xl">
                     <p className="text-foreground/85">{service.descriptionFull || service.description}</p>
                     <List title="Researches" data={service.researches} />
                     <List title="Materials" data={service.materials} />
                 </TabsContent>
-                <TabsContent value="preparations">
+                <TabsContent value="preparations" className="max-w-4xl">
                     <List title="Preparations" data={service.preparations} />
+                </TabsContent>
+                <TabsContent value="comments">
+                    <section className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        {service.comments.length > 0 ? (
+                            service.comments.map((comment) => <Comment comment={comment} key={comment.id} />)
+                        ) : (
+                            <p className="text-foreground/85 mt-8">There are no comments for this service</p>
+                        )}
+                    </section>
                 </TabsContent>
             </Tabs>
         </section>

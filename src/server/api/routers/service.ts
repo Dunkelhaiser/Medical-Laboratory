@@ -13,6 +13,18 @@ export const serviceRouter = createTRPCRouter({
             where: {
                 id: input.id,
             },
+            include: {
+                comments: {
+                    include: {
+                        user: {
+                            select: {
+                                firstName: true,
+                                lastName: true,
+                            },
+                        },
+                    },
+                },
+            },
         });
         return service;
     }),

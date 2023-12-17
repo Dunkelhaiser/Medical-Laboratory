@@ -45,6 +45,7 @@ model User {
     sessions      Session[]
     cart          Cart[]
     tokens        VerificationToken[]
+    comments      Comments[]
 }
 
 model VerificationToken {
@@ -65,6 +66,19 @@ model Service {
     materials       String[]
     preparations    String[]
     cart            Cart[]
+    comments        Comments[]
+}
+
+model Comments {
+    id          String   @id @default(cuid())
+    userId      String
+    user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    serviceId   String
+    service     Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+    content     String
+    rating      Int
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 }
 
 model Cart {
