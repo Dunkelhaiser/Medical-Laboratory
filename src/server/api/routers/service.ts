@@ -13,19 +13,23 @@ export const serviceRouter = createTRPCRouter({
             where: {
                 id: input.id,
             },
+        });
+        return service;
+    }),
+    getComments: publicProcedure.input(zod.object({ id: zod.string() })).query(({ ctx, input }) => {
+        const comments = ctx.db.comments.findMany({
+            where: {
+                serviceId: input.id,
+            },
             include: {
-                comments: {
-                    include: {
-                        user: {
-                            select: {
-                                firstName: true,
-                                lastName: true,
-                            },
-                        },
+                user: {
+                    select: {
+                        firstName: true,
+                        lastName: true,
                     },
                 },
             },
         });
-        return service;
+        return comments;
     }),
 });

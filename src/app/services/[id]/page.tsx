@@ -1,6 +1,6 @@
 import { api } from "@/trpc/server";
-import Comment from "@components/Comment";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@ui/Tabs";
+import Comments from "./Comments";
 
 interface Props {
     title: string;
@@ -53,13 +53,7 @@ const Page = async ({ params }: any) => {
                     <List title="Preparations" data={service.preparations} />
                 </TabsContent>
                 <TabsContent value="comments">
-                    <section className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        {service.comments.length > 0 ? (
-                            service.comments.map((comment) => <Comment comment={comment} key={comment.id} />)
-                        ) : (
-                            <p className="text-foreground/85 mt-8">There are no comments for this service</p>
-                        )}
-                    </section>
+                    <Comments id={params.id} />
                 </TabsContent>
             </Tabs>
         </section>
