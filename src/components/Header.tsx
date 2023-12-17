@@ -48,7 +48,7 @@ const Header = ({ session }: Props) => {
                     </Link>
                     <Hamburger className="sm:hidden" expanded={expanded} onClick={() => setExpanded()} />
                 </div>
-                <nav className={cn("grow basis-full overflow-hidden transition sm:h-auto", expanded ? "h-[300px]" : "h-0")}>
+                <nav className={cn("grow basis-full overflow-hidden transition-all sm:h-auto", expanded ? "h-[300px]" : "h-0")}>
                     <div className="mt-5 flex flex-col gap-x-0 gap-y-2 sm:mt-0 sm:flex-row sm:items-center sm:justify-end sm:gap-x-4 sm:gap-y-0 sm:py-4 sm:ps-7">
                         {links.map((link) => (
                             <Button
