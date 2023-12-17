@@ -24,6 +24,7 @@ export const serviceRouter = createTRPCRouter({
             include: {
                 user: {
                     select: {
+                        id: true,
                         firstName: true,
                         lastName: true,
                     },
@@ -45,4 +46,13 @@ export const serviceRouter = createTRPCRouter({
             });
             return comment;
         }),
+    deleteComment: protectedProcedure.input(zod.object({ id: zod.string() })).mutation(({ ctx, input }) => {
+        const comment = ctx.db.comments.delete({
+            where: {
+                id: input.id,
+                userId: ctx.session.user.id,
+            },
+        });
+        return comment;
+    }),
 });
