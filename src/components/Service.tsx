@@ -9,10 +9,11 @@ interface Props {
     name: string;
     description: string;
     price: number;
+    duration: number;
     id: string;
 }
 
-const Service = async ({ name, description, price, id }: Props) => {
+const Service = async ({ name, description, price, duration, id }: Props) => {
     let data;
     const session = await getServerAuthSession();
 
@@ -27,7 +28,10 @@ const Service = async ({ name, description, price, id }: Props) => {
                 <p className="text-sm text-card-foreground/75">{description}</p>
             </div>
             <div className="mt-auto">
-                <p className="mt-2 text-xl font-bold text-primary">₴{price}</p>
+                <div className="flex items-end gap-2">
+                    <p className="mt-2 text-xl font-bold text-primary">₴{price}</p>
+                    <p className="text-sm text-card-foreground/50">{`${duration} ${duration === 1 ? "day" : "days"}`}</p>
+                </div>
                 {session ? (
                     data ? (
                         <RemoveFromCart id={id} />

@@ -24,7 +24,12 @@ const Page = async () => {
                                     <p className="text-sm text-card-foreground/75">{item.description}</p>
                                 </div>
                                 <div className="mt-auto">
-                                    <p className="mt-2 text-xl font-bold text-primary">₴{item.price}</p>
+                                    <div className="flex items-end gap-2">
+                                        <p className="mt-2 text-xl font-bold text-primary">₴{item.price}</p>
+                                        <p className="text-sm text-card-foreground/50">{`${item.duration} ${
+                                            item.duration === 1 ? "day" : "days"
+                                        }`}</p>
+                                    </div>
                                     <RemoveFromCart id={item.id} />
                                 </div>
                             </div>
