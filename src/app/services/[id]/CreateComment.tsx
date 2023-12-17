@@ -28,6 +28,7 @@ const CreateComment = ({ serviceId }: Props) => {
     const { mutate, isLoading } = api.service.createComment.useMutation({
         onSuccess: () => {
             toast.success("Comment created successfully");
+            form.reset();
         },
         onError: () => {
             toast.error("Failed to create comment");
