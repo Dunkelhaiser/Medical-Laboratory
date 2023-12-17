@@ -15,7 +15,7 @@ const List = ({ title, data }: Props) => {
                     <h2 className="text-xl font-bold">{title}</h2>
                     <ul className="mt-2 list-inside list-disc">
                         {data.map((item) => (
-                            <li className="text-foreground/85" key={item}>
+                            <li className="text-foreground/85 first-letter:uppercase" key={item}>
                                 {item}
                             </li>
                         ))}
