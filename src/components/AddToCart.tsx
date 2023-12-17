@@ -20,7 +20,15 @@ const AddToCart = ({ id }: Props) => {
         },
     });
     return (
-        <Button className="mt-2 max-sm:w-full" variant="default" onClick={() => mutate(id)} loading={isLoading}>
+        <Button
+            className="mt-2 max-sm:w-full"
+            variant="default"
+            onClick={(e) => {
+                e.preventDefault();
+                mutate(id);
+            }}
+            loading={isLoading}
+        >
             Add to cart
         </Button>
     );
