@@ -2,14 +2,15 @@
 
 import { api } from "@/trpc/react";
 import { Button } from "@ui/Button";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const Purchase = () => {
-    const utils = api.useUtils();
+    const router = useRouter();
     const { mutate, isLoading } = api.cart.purchase.useMutation({
         onSuccess: () => {
             toast.success("Successfully purchased");
-            utils.cart.invalidate();
+            router.refresh();
         },
         onError: () => {
             toast.error("Failed to purchase");

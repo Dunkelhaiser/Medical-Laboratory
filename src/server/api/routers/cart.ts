@@ -164,14 +164,9 @@ export const cartRouter = createTRPCRouter({
             });
         }
 
-        const purchasedServices = await ctx.db.cart.update({
+        const purchasedServices = await ctx.db.cart.delete({
             where: {
                 id: userCart.id,
-            },
-            data: {
-                services: {
-                    disconnect: userCart.services,
-                },
             },
         });
 
